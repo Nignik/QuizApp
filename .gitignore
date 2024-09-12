@@ -1,0 +1,9 @@
+.vs
+.vscode
+Build/
+**.sln
+**/bin
+**/obj
+**/.ini
+**.vcxproj
+**.user
