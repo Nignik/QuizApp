@@ -1,7 +1,8 @@
 ﻿#pragma once
 
-#include <GLFW/glfw3.h>
+#include "GuiWindow.h"
 #include "Game.h"
+
 
 class QuizApp
 {
@@ -11,14 +12,16 @@ public:
 
 	void Run();
 
-private:
-	GLFWwindow* m_Window;
-	std::thread m_GameThread;
+	void ShowOptions();
 
-	void InitWindow();
-	void InitImGui() const;
-	void InputHandler();
-	void MainLoop();
-	void Cleanup() const;
+private:
+	GuiWindow m_guiWindow;
+	std::shared_ptr<SharedResources> m_sharedResources;
+	Game m_game;
+	std::thread m_gameThread;
+
+	std::thread m_inputThread;
+
+	void HandleInput();
 };
 

@@ -10,22 +10,22 @@
 class CSVRow
 {
 public:
-	std::string_view operator[](std::size_t index) const
+	std::wstring_view operator[](std::size_t index) const
 	{
-		return std::string_view(&m_line[m_data[index] + 1], m_data[index + 1] - (m_data[index] + 1));
+		return std::wstring_view(&m_line[m_data[index] + 1], m_data[index + 1] - (m_data[index] + 1));
 	}
 	std::size_t size() const
 	{
 		return m_data.size() - 1;
 	}
-	void readNextRow(std::istream& str)
+	void readNextRow(std::wistream& str)
 	{
 		std::getline(str, m_line);
 
 		m_data.clear();
 		m_data.emplace_back(-1);
-		std::string::size_type pos = 0;
-		while ((pos = m_line.find(',', pos)) != std::string::npos)
+		std::wstring::size_type pos = 0;
+		while ((pos = m_line.find(L',', pos)) != std::wstring::npos)
 		{
 			m_data.emplace_back(pos);
 			++pos;
@@ -35,11 +35,11 @@ public:
 		m_data.emplace_back(pos);
 	}
 private:
-	std::string         m_line;
+	std::wstring         m_line;
 	std::vector<int>    m_data;
 };
 
-inline std::istream& operator>>(std::istream& str, CSVRow& data)
+inline std::wistream& operator>>(std::wistream& str, CSVRow& data)
 {
 	data.readNextRow(str);
 	return str;
@@ -54,7 +54,7 @@ public:
 	typedef CSVRow* pointer;
 	typedef CSVRow& reference;
 
-	CSVIterator(std::istream& str) :m_str(str.good() ? &str : nullptr) { ++(*this); }
+	CSVIterator(std::wistream& str) :m_str(str.good() ? &str : nullptr) { ++(*this); }
 	CSVIterator() :m_str(nullptr) {}
 
 	// Pre Increment
@@ -67,17 +67,18 @@ public:
 	bool operator==(CSVIterator const& rhs) { return ((this == &rhs) || ((this->m_str == nullptr) && (rhs.m_str == nullptr))); }
 	bool operator!=(CSVIterator const& rhs) { return !((*this) == rhs); }
 private:
-	std::istream* m_str;
+	std::wistream* m_str;
 	CSVRow              m_row;
 };
 
 class CSVRange
 {
-	std::istream& stream;
+	std::wistream& stream;
 public:
-	CSVRange(std::istream& str)
+	CSVRange(std::wistream& str)
 		: stream(str)
-	{}
+	{
+	}
 	CSVIterator begin() const { return CSVIterator{ stream }; }
 	CSVIterator end()   const { return CSVIterator{}; }
 };

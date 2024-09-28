@@ -4,7 +4,7 @@
 
 namespace GI
 {
-	void DisplayQuestion(const std::string& question);
-	void DisplayResult(const std::string& correctAnswer, const bool correct = true);
+	void DisplayQuestion(const std::wstring& question);
+	void DisplayResult(const std::wstring& correctAnswer, const bool correct = true);
 	void ClearConsole();
 }

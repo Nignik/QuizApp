@@ -1,36 +1,37 @@
+#include <windows.h>
+
 #include "GameInterface.h"
 
 #include <iostream>
-#include <windows.h>
 
 
 namespace GI
 {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	void DisplayQuestion(const std::string& question)
+	void DisplayQuestion(const std::wstring& question)
 	{
 		SetConsoleTextAttribute(hConsole, 11);
-		std::cout << question << std::endl;
+		std::wcout << question << std::endl;
 		SetConsoleTextAttribute(hConsole, 15);
 	}
 
-	void DisplayResult(const std::string& correctAnswer, const bool correct)
+	void DisplayResult(const std::wstring& correctAnswer, const bool correct)
 	{
 		if (correct)
 		{
 			SetConsoleTextAttribute(hConsole, 10);
-			std::cout << "Correct: ";
+			std::wcout << "Correct: ";
 			SetConsoleTextAttribute(hConsole, 14);
-			std::cout << correctAnswer << "\n\n";
+			std::wcout << correctAnswer << "\n\n";
 			SetConsoleTextAttribute(hConsole, 15);
 		}
 		else
 		{
 			SetConsoleTextAttribute(hConsole, 12);
-			std::cout << "Incorrect: ";
+			std::wcout << "Incorrect: ";
 			SetConsoleTextAttribute(hConsole, 14);
-			std::cout << correctAnswer << "\n\n";
+			std::wcout << correctAnswer << "\n\n";
 			SetConsoleTextAttribute(hConsole, 15);
 		}
 	}

@@ -4,12 +4,14 @@ project "QuizApp"
     cppdialect "C++20"
 
     files {
-        "src/**.h", "src/**.cpp"
+        "src/**.h", "src/**.cpp",
+        "%{wks.location}/external/glad/src/**.c"
     }
 
     includedirs {
         "%{wks.location}/external/imgui",
         "%{wks.location}/external/glfw/include",
+        "%{wks.location}/external/glad/include"
     }
 
     libdirs {

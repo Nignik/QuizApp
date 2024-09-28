@@ -5,7 +5,8 @@
 
 #include "GameInterface.h"
 
-Game::Game(SharedResources* sharedResources) : m_SharedResources(sharedResources)
+Game::Game(std::shared_ptr<SharedResources> sharedResources) 
+	: m_SharedResources(sharedResources)
 {
 }
 
@@ -40,7 +41,7 @@ void Game::Play()
 	}
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(100));
-	std::cout << "Play stopped" << '\n';
+	std::wcout << "Play stopped" << '\n';
 	//GI::ClearConsole();
 }
 

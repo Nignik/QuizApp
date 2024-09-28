@@ -7,12 +7,12 @@ Quiz::Quiz(std::vector<QuizCard> deck, std::function<void(std::vector<QuizCard>&
 	m_CurrentCard = m_Deck.begin();
 }
 
-std::string& Quiz::GetCurrentQuestion() const
+std::wstring& Quiz::GetCurrentQuestion() const
 {
 	return m_CurrentCard->question;
 }
 
-std::string& Quiz::GetCurrentAnswer() const
+std::wstring& Quiz::GetCurrentAnswer() const
 {
 	return m_CurrentCard->answer;
 }
@@ -39,7 +39,7 @@ void Quiz::Swap()
 	std::vector<QuizCard> newDeck;
 	for (auto& card : oldDeck)
 	{
-		newDeck.push_back(QuizCard(card.answer, card.question));
+		newDeck.emplace_back(card.answer, card.question);
 	}
 
 	m_Deck = newDeck;

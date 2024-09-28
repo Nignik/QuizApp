@@ -11,8 +11,8 @@ class Quiz
 public:
 	Quiz(std::vector<QuizCard> deck, std::function<void(std::vector<QuizCard>&)> shuffleFunction);
 
-	[[nodiscard]] std::string& GetCurrentQuestion() const;
-	[[nodiscard]] std::string& GetCurrentAnswer() const;
+	[[nodiscard]] std::wstring& GetCurrentQuestion() const;
+	[[nodiscard]] std::wstring& GetCurrentAnswer() const;
 
 	void NextCard();
 	void ShuffleDeck();
