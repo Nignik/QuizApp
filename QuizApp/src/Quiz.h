@@ -4,12 +4,14 @@
 #include <vector>
 #include <string>
 #include <functional>
+
 #include "CardTypes.h"
+#include "Shuffles.h"
 
 class Quiz
 {
 public:
-	Quiz(std::vector<QuizCard> deck, std::function<void(std::vector<QuizCard>&)> shuffleFunction);
+	Quiz(std::vector<QuizCard> deck, std::shared_ptr<ShuffleType> shuffleStrategy);
 
 	[[nodiscard]] std::wstring& GetCurrentQuestion() const;
 	[[nodiscard]] std::wstring& GetCurrentAnswer() const;
@@ -18,9 +20,11 @@ public:
 	void ShuffleDeck();
 	void Swap();
 
-private:
-	std::function<void(std::vector<QuizCard>&)> m_Shuffle;
+	void SetShuffleClass(std::shared_ptr<ShuffleType> newStrategy);
 
-	std::vector<QuizCard> m_Deck;
-	std::vector<QuizCard>::iterator m_CurrentCard;
+private:
+	std::shared_ptr<ShuffleType> m_shuffle;
+	std::vector<QuizCard> m_deckArchetype;
+	std::vector<QuizCard> m_deck;
+	std::vector<QuizCard>::iterator m_currentCard;
 };

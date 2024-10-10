@@ -1,48 +1,57 @@
 #include "Quiz.h"
 
-Quiz::Quiz(std::vector<QuizCard> deck, std::function<void(std::vector<QuizCard>&)> shuffleFunction) :
-	m_Shuffle(std::move(shuffleFunction)), m_Deck(std::move(deck))
+Quiz::Quiz(std::vector<QuizCard> deck, std::shared_ptr<ShuffleType> shuffleStrategy)
+	: m_shuffle(std::move(shuffleStrategy)),
+	m_deckArchetype(std::move(deck)),
+	m_deck(m_deckArchetype)
 {
 	ShuffleDeck();
-	m_CurrentCard = m_Deck.begin();
 }
 
 std::wstring& Quiz::GetCurrentQuestion() const
 {
-	return m_CurrentCard->question;
+	return m_currentCard->question;
 }
 
 std::wstring& Quiz::GetCurrentAnswer() const
 {
-	return m_CurrentCard->answer;
+	return m_currentCard->answer;
 }
 
 void Quiz::NextCard()
 {
-	++m_CurrentCard;
+	++m_currentCard;
 
-	if (m_CurrentCard == m_Deck.end())
+	if (m_currentCard == m_deck.end())
 	{
 		ShuffleDeck();
-		m_CurrentCard = m_Deck.begin();
+		m_currentCard = m_deck.begin();
 	}
 }
 
 void Quiz::ShuffleDeck()
 {
-	m_Shuffle(m_Deck);
+	m_deck = m_deckArchetype;
+	m_shuffle->Shuffle(m_deck);
+	m_currentCard = m_deck.begin();
 }
 
 void Quiz::Swap()
 {
-	std::vector<QuizCard> oldDeck = m_Deck;
+	std::vector<QuizCard> oldDeck = m_deck;
 	std::vector<QuizCard> newDeck;
 	for (auto& card : oldDeck)
 	{
 		newDeck.emplace_back(card.answer, card.question);
 	}
 
-	m_Deck = newDeck;
-	m_CurrentCard = m_Deck.begin();
+	m_deck = newDeck;
+	m_currentCard = m_deck.begin();
+}
+
+void Quiz::SetShuffleClass(std::shared_ptr<ShuffleType> newClass)
+{
+	m_shuffle = newClass;
+	ShuffleDeck();
 }
 

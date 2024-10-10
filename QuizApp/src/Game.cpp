@@ -14,8 +14,8 @@ void Game::Init(const std::vector<QuizCard>& cards)
 {
 	m_IsGameOn = true;
 
-	std::function passFunction = shuffleRandom<QuizCard>;
-	m_Quiz = std::make_unique<Quiz>(cards, passFunction);
+	auto shuffle = std::make_shared<MultiplyShuffle>(1);
+	m_Quiz = std::make_unique<Quiz>(cards, shuffle);
 }
 
 void Game::Play()
@@ -50,6 +50,16 @@ void Game::Swap()
 	m_Quiz->Swap();
 }
 
+void Game::ChangeCaseSensitivity()
+{
+	m_IsCaseSensitive = !m_IsCaseSensitive;
+}
+
+void Game::UseMultiplyShuffle(int val)
+{
+	m_Quiz->SetShuffleClass(std::make_shared<MultiplyShuffle>(val));
+}
+
 void Game::End()
 {
 	m_IsGameOn = false;
@@ -57,7 +67,14 @@ void Game::End()
 
 void Game::ProcessUserAnswer() const
 {
-	if (m_UserAnswer == m_Quiz->GetCurrentAnswer())
+	auto userAnswer = m_UserAnswer;
+	auto correctAnswer = m_Quiz->GetCurrentAnswer();
+	if (!m_IsCaseSensitive)
+	{
+		std::transform(userAnswer.begin(), userAnswer.end(), userAnswer.begin(), tolower);
+		std::transform(correctAnswer.begin(), correctAnswer.end(), correctAnswer.begin(), tolower);
+	}
+	if (userAnswer == correctAnswer)
 	{
 		GI::DisplayResult(m_Quiz->GetCurrentAnswer(), true);
 	}

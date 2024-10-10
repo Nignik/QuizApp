@@ -42,6 +42,13 @@ void GuiWindow::RenderOptions()
 			checkbox.func();
 		}
 	}
+	for (auto& input : m_intInputs)
+	{
+		if (ImGui::InputInt(input.name.c_str(), &input.val))
+		{
+			input.func(input.val);
+		}
+	}
 	ImGui::End();
 }
 
@@ -53,6 +60,11 @@ void GuiWindow::AddCheckbox(Checkbox&& newCheckbox)
 void GuiWindow::AddCheckbox(std::string&& name, std::function<void()> func)
 {
 	m_checkboxes.emplace_back(name, func);
+}
+
+void GuiWindow::AddIntInput(IntInput&& newIntInput)
+{
+	m_intInputs.push_back(newIntInput);
 }
 
 void GuiWindow::CreateSelector(FileSelector&& newFileSelector)

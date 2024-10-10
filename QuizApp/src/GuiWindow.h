@@ -18,6 +18,14 @@ struct Checkbox
 	bool val = false;
 };
 
+struct IntInput
+{
+	std::string name;
+	std::function<void(int)> func;
+
+	int val = 0;
+};
+
 class GuiWindow
 {
 public:
@@ -34,12 +42,15 @@ public:
 	void AddCheckbox(Checkbox&& newCheckbox);
 	void AddCheckbox(std::string&& name, std::function<void()> func);
 
+	void AddIntInput(IntInput&& newIntInput);
+
 	void CreateSelector(FileSelector&& newFileSelector);
 	void CreateSelector(std::string&& defaultPath);
 
 private:
 	Renderer m_renderer;
 
+	std::vector<IntInput> m_intInputs;
 	std::vector<Checkbox> m_checkboxes;
 	FileSelector m_fileSelector = FileSelector("C:/");
 

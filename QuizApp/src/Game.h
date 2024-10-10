@@ -5,6 +5,7 @@
 
 #include "Quiz.h"
 #include "SharedResources.h"
+#include "Shuffles.h"
 
 class Game
 {
@@ -14,6 +15,8 @@ public:
 	void Init(const std::vector<QuizCard>& cards);
 	void Play();
 	void Swap();
+	void ChangeCaseSensitivity();
+	void UseMultiplyShuffle(int val);
 	void End();
 
 	void ProcessUserAnswer() const;
@@ -25,6 +28,7 @@ private:
 	std::wstring m_UserAnswer;
 
 	bool m_IsGameOn = false;
+	bool m_IsCaseSensitive = false;
 	bool m_InputReady = false;
 
 	std::mutex m_Mutex;

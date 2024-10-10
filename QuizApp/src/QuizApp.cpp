@@ -51,6 +51,8 @@ void QuizApp::Run()
 void QuizApp::ShowOptions()
 {
 	m_guiWindow.AddCheckbox("Swap questions with answers", std::bind(&Game::Swap, &m_game));
+	m_guiWindow.AddCheckbox("Enable case sensitivity", std::bind(&Game::ChangeCaseSensitivity, &m_game));
+	m_guiWindow.AddIntInput({ "Repeat question", std::bind(&Game::UseMultiplyShuffle, &m_game, std::placeholders::_1), 1 });
 }
 
 void QuizApp::HandleInput()
