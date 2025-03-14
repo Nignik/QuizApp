@@ -7,3 +7,7 @@ Build/
 **/.ini
 **.vcxproj
 **.user
+**.filters
+CMakeCache.txt
+cmake_install.cmake
+CMakeFiles/

@@ -1,0 +1,10 @@
+^C:\DEV\RANDOMSTUFF\QUIZAPP\CMAKEFILES\AE696FFD2AA41C63680AF536FC20CC39\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/randomStuff/QuizApp -BC:/dev/randomStuff/QuizApp --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/dev/randomStuff/QuizApp/QuizApp.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

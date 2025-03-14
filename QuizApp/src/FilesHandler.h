@@ -27,7 +27,7 @@ inline std::ifstream getCsvFile(const std::string& filePath)
 inline std::wifstream getCsvFile(const fs::path& filePath)
 {
 	std::wifstream file(filePath);
-	file.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
+	//file.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
 
 	if (!file)
 	{

@@ -54,8 +54,6 @@ private:
 	std::vector<Checkbox> m_checkboxes;
 	FileSelector m_fileSelector = FileSelector("C:/");
 
-	std::shared_ptr<bool> x = std::make_shared<bool>(false), y = std::make_shared<bool>(false);
-
 	void RenderFileSelectors();
 	void RenderOptions();
 };

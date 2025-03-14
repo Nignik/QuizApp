@@ -3,7 +3,9 @@
 #include "GameInterface.h"
 
 #include <iostream>
-
+#include <fmt/core.h>
+#include <fmt/format.h>
+#include <fmt/xchar.h>
 
 namespace GI
 {
@@ -12,7 +14,7 @@ namespace GI
 	void DisplayQuestion(const std::wstring& question)
 	{
 		SetConsoleTextAttribute(hConsole, 11);
-		std::wcout << question << std::endl;
+		fmt::println(L"{}", question);
 		SetConsoleTextAttribute(hConsole, 15);
 	}
 
@@ -21,17 +23,17 @@ namespace GI
 		if (correct)
 		{
 			SetConsoleTextAttribute(hConsole, 10);
-			std::wcout << "Correct: ";
+			fmt::print("Correct: ");
 			SetConsoleTextAttribute(hConsole, 14);
-			std::wcout << correctAnswer << "\n\n";
+			fmt::print(L"{} \n\n", correctAnswer);
 			SetConsoleTextAttribute(hConsole, 15);
 		}
 		else
 		{
 			SetConsoleTextAttribute(hConsole, 12);
-			std::wcout << "Incorrect: ";
+			fmt::print("Incorrect: ");
 			SetConsoleTextAttribute(hConsole, 14);
-			std::wcout << correctAnswer << "\n\n";
+			fmt::print(L"{}\n\n", correctAnswer);
 			SetConsoleTextAttribute(hConsole, 15);
 		}
 	}
